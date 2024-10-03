@@ -1,0 +1,123 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+.franja {
+    background-color: #333; /* Color de fondo para el logo */
+    text-align: center; /* Centrar el logo */
+    padding: 10px 0; /* Espacio arriba y abajo */
+}
+
+.banner {
+    background-color: #007BFF; /* Color de fondo para el banner */
+    padding: 10px 0; /* Espacio alrededor del título */
+    color: #fff; /* Color del texto */
+    text-align: center; /* Centrar el texto */
+    margin-bottom: 20px; /* Espacio debajo del banner */
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    font-size: 2.5em;
+    font-family: 'Georgia', serif;
+    margin-bottom: 30px;
+}
+
+.gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.escultura {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    padding: 20px;
+}
+
+.nombre {
+    font-size: 2em;
+    color: #2c3e50;
+    margin: 10px 0;
+    font-weight: bold;
+    text-align: center;
+}
+
+.escultura-info {
+    display: flex; /* Usar flexbox para alinear imágenes lado a lado */
+    align-items: center; /* Alinear verticalmente */
+    flex-wrap: wrap; /* Permitir que los elementos se envuelvan en pantallas más pequeñas */
+    gap: 20px; /* Espacio entre elementos */
+}
+
+.foto {
+    width: 40%; /* Ancho de la imagen de la escultura */
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.autor-descripcion {
+    flex: 1; /* Permitir que este div ocupe el espacio restante */
+    display: flex;
+    flex-direction: column; /* Mantener la descripción en columna */
+    justify-content: center; /* Centrar verticalmente */
+}
+
+.autor-foto {
+    width: 80px; /* Ancho fijo para la imagen del autor */
+    height: auto;
+    border-radius: 50%; /* Hacer la imagen del autor circular */
+    margin-bottom: 10px; /* Espacio debajo de la imagen del autor */
+}
+
+.autor, .pais {
+    font-style: italic;
+    color: #7f8c8d;
+    font-size: 1em; /* Tamaño de fuente reducido para mejor ajuste */
+}
+
+.descripcion-autor {
+    margin: 10px 0;
+    color: #444;
+    font-size: 1em; /* Tamaño de fuente reducido para mejor ajuste */
+}
+
+.votacion {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.star-rating {
+    display: flex;
+    margin-right: 10px;
+}
+
+.star {
+    font-size: 30px;
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.star:hover,
+.star:active {
+    color: yellow; /* Estrellas amarillas al pasar el mouse */
+}
+
+.selected {
+    color: yellow;
+}
+
+.puntuacion {
+    font-weight: bold;
+    color: #333;
+    font-size: 1.2em;
+}
