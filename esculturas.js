@@ -10,7 +10,6 @@ const esculturas = [
         valoracion: 0,
         fotoAutor: "https://www.republicadecorrientes.com/content/bucket/4/66054w695h513c.jpg.webp" 
     },
-
     {
         id: 2,
         nombre: "Multiplicidad",
@@ -22,7 +21,6 @@ const esculturas = [
         valoracion: 0,
         fotoAutor: "https://www.bienaldelchaco.org/2024/wp-content/uploads/2024/04/mardones-guillen.fw_-1.png" 
     },
-
     {
         id: 3,
         nombre: "Mensaje",
@@ -36,6 +34,10 @@ const esculturas = [
     },
 ];
 
+// Variable global para almacenar el correo
+let userEmail = null;
+const votedEmails = new Set(); // Para almacenar los correos que ya han votado
+
 // Función para renderizar las esculturas
 function renderEsculturas() {
     const container = document.getElementById('esculturas-container');
@@ -48,10 +50,7 @@ function createEsculturaHTML(escultura) {
         <div class="escultura">
             <h3 class="nombre">${escultura.nombre}</h3>
             <div class="escultura-info">
-                <!-- Imagen de la escultura -->
                 <img src="${escultura.foto}" alt="${escultura.nombre}" class="foto">
-                
-                <!-- Imagen del autor y descripción -->
                 <div class="autor-descripcion">
                     <img src="${escultura.fotoAutor}" alt="${escultura.autor}" class="autor-foto">
                     <p class="autor"><strong>Autor:</strong> ${escultura.autor}</p>
@@ -59,12 +58,10 @@ function createEsculturaHTML(escultura) {
                     <p class="descripcion-autor"><strong>Descripción:</strong> ${escultura.descripcion}</p>
                 </div>
             </div>
-
-            <!-- Votación -->
             <div class="votacion">
                 <div class="star-rating" data-id="${escultura.id}">
                     ${[1, 2, 3, 4, 5].map(star => `
-                        <span class="star ${star <= escultura.valoracion ? 'selected' : ''}" data-value="${star}" onclick="votar(${escultura.id}, ${star})">&#9733;</span>
+                        <span class="star" data-value="${star}" onclick="votar(${escultura.id}, ${star})">&#9733;</span>
                     `).join('')}
                 </div>
                 <span class="puntuacion">${escultura.valoracion > 0 ? `Puntuación: ${escultura.valoracion} estrellas` : ''}</span>
@@ -75,13 +72,58 @@ function createEsculturaHTML(escultura) {
 
 // Función para votar por una escultura
 function votar(id, valor) {
+    if (!userEmail) {
+        alert("Por favor, ingresa tu correo electrónico primero.");
+        return;
+    }
+    if (votedEmails.has(userEmail)) {
+        alert("Ya has votado con este correo. No puedes votar nuevamente.");
+        return;
+    }
+
     const escultura = esculturas.find(e => e.id === id);
     if (escultura) {
-        escultura.valoracion = valor;
+        escultura.valoracion = valor; // Asignar la valoración a la escultura
+        escultura.votos += 1; // Incrementar el número de votos
+        votedEmails.add(userEmail); // Agregar el correo a la lista de correos que ya votaron
         alert(`Has votado ${valor} estrellas por la escultura "${escultura.nombre}"!`);
         renderEsculturas(); // Volver a renderizar para actualizar el estado
     }
 }
 
-// Renderizar al cargar la página
-window.onload = renderEsculturas;
+// Manejadores de eventos para el modal
+window.onload = () => {
+    document.getElementById('emailModal').style.display = 'block'; // Mostrar el modal al cargar la página
+
+    document.getElementById('confirmEmailBtn').onclick = () => {
+        const emailInput = document.getElementById('emailInput').value;
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Expresión regular para validar el correo
+        if (!emailPattern.test(emailInput)) {
+            alert("Por favor, introduce un correo electrónico válido.");
+            return;
+        }
+        if (votedEmails.has(emailInput)) {
+            alert("Ya has votado con este correo. No puedes votar nuevamente.");
+            return;
+        }
+        userEmail = emailInput; // Guardar el correo
+        alert("Correo electrónico registrado. Ahora puedes votar.");
+        document.getElementById('emailModal').style.display = 'none'; // Cerrar el modal
+        renderEsculturas(); // Renderizar esculturas después de registrar el correo
+    };
+
+    document.querySelector('.close').onclick = () => {
+        document.getElementById('emailModal').style.display = 'none'; // Cerrar modal al hacer clic en "X"
+    };
+};
+
+// Cerrar el modal si se hace clic fuera de él
+window.onclick = function(event) {
+    const modal = document.getElementById('emailModal');
+    if (event.target === modal) {
+        modal.style.display = 'none';
+    }
+};
+
+// Inicializa la renderización de esculturas
+renderEsculturas();

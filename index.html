@@ -4,7 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Esculturas - Bienal del Chaco</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css"> <!-- Tu archivo de CSS -->
+    <style>
+        /* Estilos para el modal */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgb(0,0,0); 
+            background-color: rgba(0,0,0,0.4); 
+            padding-top: 60px; 
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto; 
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; 
+            max-width: 400px; 
+            border-radius: 8px; 
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #4CAF50; 
+            color: white; 
+            padding: 10px 15px; 
+            border: none; 
+            border-radius: 4px;
+            cursor: pointer; 
+            font-size: 16px; 
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
     <!-- Header con el banner -->
@@ -17,33 +80,16 @@
 
     <!-- Contenedor para las esculturas -->
     <div id="esculturas-container" class="gallery">
-        <!-- Ejemplo de una escultura -->
-        <div class="escultura">
-            <div class="escultura-info">
-                <!-- Foto de la escultura -->
-                <img src="./imagenesVarias/escultura.jpg" alt="Escultura" class="foto">
+        <!-- Aquí se renderizarán las esculturas -->
+    </div>
 
-                <!-- Detalles del autor y descripción -->
-                <div class="autor-descripcion">
-                    <img src="./imagenesVarias/autor.jpg" alt="Foto del Autor" class="autor-foto">
-                    <div class="autor">Autor: Juan Pérez</div>
-                    <div class="pais">País: Argentina</div>
-                    <div class="descripcion-autor">Parte de mi escultura se sostiene en la línea, sustentándose en materiales como metal y madera. El color es fundamental en mi trabajo, siempre presente en el recorrido que realizo. Este recorrido se manifiesta en diversas direcciones: subiendo, bajando, doblándose y desapareciendo para volver a aparecer de otra forma. Mi obra busca explorar un mismo lugar repetidamente, haciendo pequeños cambios hasta alcanzar una simpleza mínima casi imperceptible. No tiene un significado explícito, es solo una línea sin intencionalidad, pero su recorrido puede generar interpretaciones. Aspiro a llegar a la simpleza de una flecha o su trayecto.</div>
-                    
-                    <!-- Sección de votación con estrellas -->
-                    <div class="votacion">
-                        <span class="puntuacion-texto">Puntuación:</span>
-                        <div class="star-rating">
-                            <span class="star">&#9733;</span>
-                            <span class="star">&#9733;</span>
-                            <span class="star">&#9733;</span>
-                            <span class="star">&#9733;</span>
-                            <span class="star">&#9733;</span>
-                        </div>
-                        <span class="puntuacion">4.5</span>
-                    </div>
-                </div>
-            </div>
+    <!-- Modal para el ingreso de correo electrónico -->
+    <div id="emailModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Ingresa tu correo electrónico</h2>
+            <input type="email" id="emailInput" placeholder="Correo electrónico" required>
+            <button id="confirmEmailBtn">Confirmar</button>
         </div>
     </div>
 
